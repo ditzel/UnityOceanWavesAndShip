@@ -1,18 +1,19 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Ditzelgames
 {
     public static class PhysicsHelper
     {
 
-        public static void ApplyForceToReachVelocity(Rigidbody rigidbody, Vector3 velocity, float force, ForceMode mode = ForceMode.Force)
+        public static void ApplyForceToReachVelocity(Rigidbody rigidbody, Vector3 velocity, float force = 1, ForceMode mode = ForceMode.Force)
         {
             if (force == 0 || velocity.magnitude == 0)
                 return;
 
-            //force = 1 => need 1 s to reach velocity => force can be max 1 / Time.fixedDeltaTime
-            force = Mathf.Clamp(force, - 1f / Time.fixedDeltaTime, 1f / Time.fixedDeltaTime);
+            velocity = velocity + velocity.normalized * 0.2f * rigidbody.drag;
+
+            //force = 1 => need 1 s to reach velocity (if mass is 1) => force can be max 1 / Time.fixedDeltaTime
+            force = Mathf.Clamp(force, -rigidbody.mass / Time.fixedDeltaTime, rigidbody.mass / Time.fixedDeltaTime);
 
             //dot product is a projection from rhs to lhs with a length of result / lhs.magnitude https://www.youtube.com/watch?v=h0NJK4mEIJU
             if (rigidbody.velocity.magnitude == 0)
@@ -26,25 +27,24 @@ namespace Ditzelgames
             }
         }
 
-        public static void ApplyForceToReachVelocity(Rigidbody rigidbody, Vector3 velocity)
+        public static void ApplyTorqueToReachRPS(Rigidbody rigidbody, Quaternion rotation, float rps, float force = 1)
         {
-            ApplyForceToReachVelocity(rigidbody, velocity, (1 / (rigidbody.drag + 1)) * rigidbody.mass);
-        }
+            var radPerSecond = rps * 2 * Mathf.PI + rigidbody.angularDrag * 20;
 
-        public static void ApplyTorqueToRotate(Rigidbody rigidbody, Quaternion rotation, float force, float maxSpeedDegPerSec)
-        {
             float angleInDegrees;
             Vector3 rotationAxis;
             rotation.ToAngleAxis(out angleInDegrees, out rotationAxis);
 
-            if (rotationAxis == Vector3.zero)
+            if (force == 0 || rotationAxis == Vector3.zero)
                 return;
 
-            var currentSpeed = Vector3.Project(rigidbody.angularVelocity * Mathf.Rad2Deg, rotationAxis).magnitude;
+            rigidbody.maxAngularVelocity = Mathf.Max(rigidbody.maxAngularVelocity, radPerSecond);
 
-            var torque = rotationAxis * (maxSpeedDegPerSec - currentSpeed) * force * Mathf.Deg2Rad;
+            force = Mathf.Clamp(force, -rigidbody.mass * 2 * Mathf.PI / Time.fixedDeltaTime, rigidbody.mass * 2 * Mathf.PI / Time.fixedDeltaTime);
 
-            rigidbody.AddTorque(torque - rigidbody.angularVelocity);
+            var currentSpeed = Vector3.Project(rigidbody.angularVelocity, rotationAxis).magnitude;
+
+            rigidbody.AddTorque(rotationAxis * (radPerSecond - currentSpeed) * force);
         }
 
         public static Vector3 QuaternionToAngularVelocity(Quaternion rotation)
