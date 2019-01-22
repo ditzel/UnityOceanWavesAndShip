@@ -54,11 +54,11 @@ public class Waves : MonoBehaviour
         p4.z = Mathf.Clamp(p4.z, 0, Dimension);
 
         //get the max distance to one of the edges and take that to compute max - dist
-        var max = Mathf.Max(Vector3.Distance(p1, localPos), Vector3.Distance(p2, localPos), Vector3.Distance(p3, localPos), Vector3.Distance(p4, localPos));
+        var max = Mathf.Max(Vector3.Distance(p1, localPos), Vector3.Distance(p2, localPos), Vector3.Distance(p3, localPos), Vector3.Distance(p4, localPos) + Mathf.Epsilon);
         var dist = (max - Vector3.Distance(p1, localPos))
                  + (max - Vector3.Distance(p2, localPos))
                  + (max - Vector3.Distance(p3, localPos))
-                 + (max - Vector3.Distance(p4, localPos));
+                 + (max - Vector3.Distance(p4, localPos) + Mathf.Epsilon);
         //weighted sum
         var height = Mesh.vertices[index(p1.x, p1.z)].y * (max - Vector3.Distance(p1, localPos))
                    + Mesh.vertices[index(p2.x, p2.z)].y * (max - Vector3.Distance(p2, localPos))

@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193898748678726590}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.7, y: 0, z: -2.2}
+  m_LocalPosition: {x: -2, y: 0, z: 0.23}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4334879809181752412}
@@ -96,12 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baae4a23d65914a48b265a4fc171c0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GravMultiplier: 5
-  RotSpeed: 20
-  RotForce: 20
+  AirDrag: 1
+  WaterDrag: 10
   AffectDirection: 0
-  NoDrown: 0
-  SurfaceAttached: 1
+  AttachToSurface: 0
   FloatPoints:
   - {fileID: 3490319157434389610}
   - {fileID: 2397037863690932282}
@@ -118,7 +116,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 41.96, y: 1.5, z: 4.53}
+  m_Size: {x: 4, y: 0.15, z: 0.453}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6303083151959039164
 GameObject:
@@ -144,7 +142,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6303083151959039164}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.76, y: 0, z: 2.599997}
+  m_LocalPosition: {x: 2, y: 0, z: -0.33}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4334879809181752412}
@@ -174,7 +172,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8766996007177836238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.7, y: 0, z: 2.6}
+  m_LocalPosition: {x: 2, y: 0, z: 0.24}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4334879809181752412}
@@ -204,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9206933472882813923}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.84, y: 0, z: -2.1999998}
+  m_LocalPosition: {x: -2, y: 0, z: -0.15}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4334879809181752412}
@@ -267,15 +265,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 916d9cfb769cf8d4ea398554e3108978, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 916d9cfb769cf8d4ea398554e3108978, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 916d9cfb769cf8d4ea398554e3108978, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 916d9cfb769cf8d4ea398554e3108978, type: 3}
       propertyPath: m_Materials.Array.data[0]

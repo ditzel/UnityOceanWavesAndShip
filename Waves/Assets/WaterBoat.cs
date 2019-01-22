@@ -75,8 +75,8 @@ public class WaterBoat : MonoBehaviour
         Rigidbody.velocity = Quaternion.AngleAxis(Vector3.SignedAngle(Rigidbody.velocity, (movingForward ? 1f : 0f) * transform.forward, Vector3.up) * Drag, Vector3.up) * Rigidbody.velocity;
 
         //camera position
-        Camera.transform.LookAt(transform.position + transform.forward * 60f + transform.up * 20f);
-        Camera.transform.position = Vector3.SmoothDamp(Camera.transform.position, transform.position + transform.forward * -80f + transform.up * 20f, ref CamVel, 0.5f);
+        //Camera.transform.LookAt(transform.position + transform.forward * 6f + transform.up * 2f);
+        //Camera.transform.position = Vector3.SmoothDamp(Camera.transform.position, transform.position + transform.forward * -8f + transform.up * 2f, ref CamVel, 0.05f);
     }
 
 }
